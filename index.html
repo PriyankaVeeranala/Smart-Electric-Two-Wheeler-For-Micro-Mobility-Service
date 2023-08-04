@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="Access-Control-Allow-Origin" content="*">
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+		<title>RIDE</title>
+		<style>
+			html {
+				font-family: Arial;
+				display: inline-block;
+				margin: 0px auto;
+				text-align: center;
+			}
+      		
+			body {
+			background-color: black;
+			color: white;
+		}
+		#title {
+			text-align: center;
+			font-weight: bold;
+			color: white;
+			margin-top: 20px;
+		}
+		#tit {
+			text-align: center;
+			font-weight: bold;
+			color: white;
+			margin-top: 20px;
+		}
+		#cod {
+			text-align: center;
+			font-weight: bold;
+			color: gold;
+			margin-top: 10px;
+		}
+		#access {
+			text-align: center;
+			font-weight: bold;
+			color: gray;
+			margin-top: 10px;
+		}
+		#welcome-container {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+		}
+		#login-container {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			margin-top: 50px;
+		}
+		input[type=text], input[type=password] {
+			padding: 10px;
+			font-size: 16px;
+			color: #666;
+			border: none;
+			background-color: #f1f1f1;
+			margin-bottom: 10px;
+		}
+		input[type=submit] {
+			padding: 10px;
+			font-size: 16px;
+			color: white;
+			background-color: #333;
+			border: none;
+			cursor: pointer;
+		}
+		#team-ride {
+			display: none;
+			background-color: white;
+			color: black;
+			height: 100vh;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+			h1 { font-size: 2.0rem; color:#2980b9;text-align: center;
+			flex: 1;}
+
+      
+			.buttonON {
+				display: inline-block;
+				padding: 15px 25px;
+				font-size: 24px;
+				font-weight: bold;
+				cursor: pointer;
+				text-align: center;
+				text-decoration: none;
+				outline: none;
+				color: #fff;
+				background-color: #4CAF50;
+				border: none;
+				border-radius: 15px;
+				box-shadow: 0 5px #999;
+			}
+			
+			.button-text-container {
+			  display: flex;
+			  align-items: center;
+			  padding-right: 5px;
+		      }
+
+			.buttonmap {
+			border-radius: 50%;
+			width: 50px;
+			height: 50px;
+			padding: 0;
+			border: none;
+			background-color: #ffffff;
+			box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
+			transition: all 0.3s ease;
+			cursor: pointer;
+			margin-left: auto;
+		      }
+
+		     .buttonmap:hover {
+		  	  transform: translateY(-5px);
+			  box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.3);
+		      }
+
+		     .pointer {
+			  border-radius: 50%;
+			  display: block;
+			  width: 100%;
+			  height: 100%;
+			  object-fit: cover;
+		      }
+			
+			.buttonON:hover {background-color: #3e8e41}
+			.buttonON:active {
+				background-color: #3e8e41;
+				box-shadow: 0 1px #666;
+				transform: translateY(4px);
+			}
+      
+			.buttonOFF {
+				display: inline-block;
+				padding: 15px 25px;
+				font-size: 24px;
+				font-weight: bold;
+				cursor: pointer;
+				text-align: center;
+				text-decoration: none;
+				outline: none;
+				color: #fff;
+				background-color: #e74c3c;
+				border: none;
+				border-radius: 15px;
+				box-shadow: 0 5px #999;
+			}
+		
+			.buttonOFF:hover {background-color: #c0392b}
+			.buttonOFF:active {
+				background-color: #c0392b;
+				box-shadow: 0 1px #666;
+				transform: translateY(4px);
+			}
+			.buttonpau {
+				display: inline-block;
+				padding: 15px 25px;
+				font-size: 24px;
+				font-weight: bold;
+				cursor: pointer;
+				text-align: center;
+				text-decoration: none;
+				outline: none;
+				color: #fff;
+				background-color: #fcae1e;
+				border: none;
+				border-radius: 15px;
+				box-shadow: 0 5px #999;
+			}
+		
+			.buttonpau:hover {background-color: #fc6a03}
+			.buttonpau:active {
+				background-color: #fc6a03;
+				box-shadow: 0 1px #666;
+				transform: translateY(4px);
+			}
+			.buttonres {
+				display: inline-block;
+				padding: 15px 25px;
+				font-size: 24px;
+				font-weight: bold;
+				cursor: pointer;
+				text-align: center;
+				text-decoration: none;
+				outline: none;
+				color: #fff;
+				background-color: #0490c2;
+				border: none;
+				border-radius: 15px;
+				box-shadow: 0 5px #999;
+			}
+		
+			.buttonres:hover {background-color: #2832c2}
+			.buttonres:active {
+				background-color: #2832c2;
+				box-shadow: 0 1px #666;
+				transform: translateY(4px);
+			}
+			
+			.text {
+				text-align: center;
+				font-size: 18px;
+				width: 200px;
+				height: 22px;
+				border: 3px solid #9b59b6;
+				border-radius: 5px;
+				padding: 3px;
+				-webkit-transition: border 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+				-moz-transition: border 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+				-ms-transition: border 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+				-o-transition: border 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+				transition: border 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+			}
+
+			.text:focus {
+				border: 3px solid #8e44ad;
+				box-shadow: 0 0 7px #8e44ad;
+				outline: none;
+			}
+			#title {
+			font-size: 24px;
+			margin-right: 20px;
+			font-weight: bold;
+			}
+			#titllle {
+			font-size: 24px;
+			margin-right: 20px;
+			font-weight: bold;
+			}
+			
+			
+			#timer-container {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin-top: 20px;
+			margin-bottom: 50px;
+		   }
+		
+		   #timer {
+			 font-size: 40px;
+		   }
+		.blink {
+			animation: blinker 1s linear infinite;
+			color: red;
+		}
+		
+		@keyframes blinker {
+			50% {
+				opacity: 0;
+			}
+		}
+		</style>
+	</head>
+	<body>
+		<!-- Password form with "Welcome to RIDE" and "2023 CODEASTHRA" messages -->
+    <div id="welcome-container">
+        <h1 id="tit">Welcome to RIDE</h1>
+        <h2 id="cod">...2023 CODEASTHRA...</h2>
+        
+  <div id="login-container">
+	<br>
+        <br>
+    <h1 id="title">Login</h1>
+    <form onsubmit="return validateLogin();">
+      <div id="username-container">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username">
+      </div>
+      <div id="password-container">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password">
+      </div>
+      <div id="submit-container">
+        <input type="submit" value="Login">
+      </div>
+    </form>
+  </div>
+  <div id="e-passcode-container" style="display: none;">
+	<br>
+        <br>
+        <br>
+        <br>
+        <br>
+    <h1 id="title">E-Passcode</h1>
+    
+    <h4 id="access">To access, please enter the E-Passcode of <span style='color:white;font-weight: bold;'>151022</span></h4>
+    <form onsubmit="return validateEPasscode();">
+      <div id="password-container">
+        <label for="e-passcode" style="display: none;">Enter E-Passcode</label>
+        <input type="password" id="e-passcode" name="e-passcode" placeholder="Enter E-Passcode">
+        <input type="submit" value="Submit">
+      </div>
+    </form>
+  </div>
+</div>
+  <!-- Main -->
+		<div id="team-ride" style="display: none;">
+		<div>
+			<div class="button-text-container">
+			<h1 style="color:#2c3e50;font-weight: bold;font-size: 18px;">Revolutionize Your <span style="color:#00BF00;font-weight: bold;font-size: 18px;">RIDE</span> Experience</h1>
+			  <a href="https://www.google.com/maps/" target="_blank">
+			     <button type="button" class="buttonmap"><img class="pointer" src="map.png" alt="Go to Maps"></button>
+		        </a>
+			
+			</div>
+
+			<img id="LightImage" width="300" height="230" src="1111.png">
+			<div id="timer-container">
+				<div id="titllle">RIDE time :</div>
+				<div id="timer">00:00:00</div>
+			</div>
+			<button type="button" id="light-on" class="buttonON" >START RIDE</button>
+			<button type="button" id="pause-btn" onclick="pauseTimer()" class="buttonpau" style="display: none;" >PAUSE RIDE</button>
+			<button type="button" id="resume-btn" onclick="resumeTimer()" class="buttonres" style="display: none;" >RESUME RIDE</button>
+			<button type="button" id="light-off" class="buttonOFF" style="display: none;" >END RIDE</button>
+			
+		<br>
+		</div>
+		<br>
+		
+		<div>
+			<p style="color:#2c3e50;font-weight: bold;font-size: 24px;"><span id="LIGHTState">Please wait...</span></p>		
+			<p style="color:#2c3e50;font-weight: bold;font-size: 24px;"><span id="LIGHTStatee">The action will be completed within 30 seconds</span></p>
+			<p style="color:black;font-weight: bold;font-size: 20px;">--------------------- </p>
+		</div>
+    		</div>
+		<script>
+			function showTeamRIDE() {
+			var password = "0106"; // Replace with your desired password
+			var enteredPassword = document.getElementById("password").value;
+
+			if (enteredPassword == password) {
+				document.getElementById("login-container").style.display = "none";
+				document.getElementById("team-ride").style.display = "block";
+			} else {
+				alert("Incorrect E-Passcode. Please try again.");
+			}
+		}
+
+		function showLoginPage() {
+			var username = "admin"; // Replace with your desired username
+			var password = "password"; // Replace with your desired password
+			var enteredUsername = document.getElementById("username").value;
+			var enteredPassword = document.getElementById("password-login").value;
+
+			if (enteredUsername == username && enteredPassword == password) {
+				document.getElementById("login-container").style.display = "none";
+				document.getElementById("access").innerHTML = "To access, please enter the E-Passcode of <span style='color:white;font-weight: bold;'>0106</span>";
+				document.getElementById("password-container").style.display = "block";
+			} else {
+				alert("Incorrect login details. Please try again.");
+			}
+		}
+		function validateLogin() {
+      var username = document.getElementById("username").value;
+      var password = document.getElementById("password").value;
+      if (username === "codeasthra" && password === "RIDE") {
+        document.getElementById("login-container").style.display = "none";
+        document.getElementById("e-passcode-container").style.display = "block";
+        return false;
+      } else {
+        alert("Incorrect username or password. Please try again.");
+        return false;
+      }
+    }
+
+    function validateEPasscode() {
+      var ePasscode = document.getElementById("e-passcode").value;
+      if (ePasscode === "0106") {
+        document.getElementById("e-passcode-container").style.display = "none";
+        document.getElementById("team-ride").style.display = "block";
+        return false;
+      } else {
+        alert("Incorrect E-Passcode. Please try again.");
+        return false;
+      }
+    }
+			var hours = 0;
+			var minutes = 0;
+			var seconds = 0;
+			var loopstart = 0;
+			var value = 0;
+			var timer;
+			var timerRunning = false;
+			
+			function doInitial(){
+				getThingSpeakLightState();		
+				 window.removeEventListener("DOMContentLoaded", doInitial);}
+
+			window.addEventListener("DOMContentLoaded", doInitial);
+			
+			document.getElementById('light-on').addEventListener('click', function() {
+				
+				var url = "https://api.thingspeak.com/update?api_key=QL4G13MTTB3ZDARH&field1=1"
+				var proxyurl = "https://corsproxy.io/?";
+				var urlwithproxy = proxyurl + url;
+				fetch(urlwithproxy, {
+				   method: 'POST'
+				})
+				.then(response => console.log(response))
+				.catch(error => console.error(error));
+				document.getElementById("LIGHTState").innerHTML = "Wait a moment !";
+			  	document.getElementById("LIGHTStatee").innerHTML = " ";
+				
+				
+				
+			});
+		
+			document.getElementById('light-off').addEventListener('click', function() {
+				
+				var url = "https://api.thingspeak.com/update?api_key=QL4G13MTTB3ZDARH&field1=0"
+				var proxyurl = "https://corsproxy.io/?";
+				var urlwithproxy = proxyurl + url
+				fetch(urlwithproxy, {
+				   method: 'POST'
+				})
+				.then(response => console.log(response))
+				.catch(error => console.error(error));
+				document.getElementById("LIGHTState").innerHTML = "Wait a moment !";
+			  	document.getElementById("LIGHTStatee").innerHTML = " ";
+				
+			});
+			
+			function pauseTimer() {
+        		  clearInterval(timer);
+				  value = 1;
+        		  document.getElementById("pause-btn").style.display = "none";
+        		  document.getElementById("resume-btn").style.display = "inline-block";
+        		  document.getElementById("light-off").style.display = "inline-block";
+			  	  document.getElementById("LIGHTState").innerHTML = "Click RESUME RIDE to restart the <span style='color:blue;font-weight: bold;'>RIDE</span>";
+			  	  document.getElementById("LIGHTStatee").innerHTML = " ";
+			  	  
+      		}
+			function resumeTimer() {
+				  document.getElementById("LIGHTState").innerHTML = "Your <span style='color:#00BF00;font-weight: bold;'>RIDE</span> has started";
+			  	  document.getElementById("LIGHTStatee").innerHTML = " ";
+        		  timer = setInterval(updateTimer, 1000);
+				  value = 0;
+        		  document.getElementById("resume-btn").style.display = "none";
+        		  document.getElementById("pause-btn").style.display = "inline-block";
+        		  document.getElementById("end-btn").style.display = "inline-block";
+			  	  
+      		}
+			
+			setInterval(function() {
+			// Call a function repetatively with 15 Second interval
+				getThingSpeakLightState();
+			}, 15000);
+			
+			function getThingSpeakLightState() {
+				
+				var xhttp = new XMLHttpRequest();
+				xhttp.onreadystatechange = function() {
+					if (this.readyState == 4 && this.status == 200) {
+						var myObj = JSON.parse(this.responseText);
+						if (myObj.field1 == 1) {
+							if (value == 0){
+							document.getElementById("LIGHTState").innerHTML = "Your <span style='color:#00BF00;font-weight: bold;'>RIDE</span> has started";
+							document.getElementById("LIGHTStatee").innerHTML = " ";}
+							document.getElementById("LightImage").src="2222.png";
+							loopstart++;
+							if(loopstart == 1){
+							document.getElementById("light-on").style.display = "none";
+        						document.getElementById("pause-btn").style.display = "inline-block";
+        						document.getElementById("light-off").style.display = "inline-block";}
+							if (!timerRunning) {
+							timerRunning = true;
+							timer = setInterval(updateTimer, 1000);
+			  				}
+						}
+						else {
+							document.getElementById("LIGHTState").innerHTML = "Click START RIDE to begin the <span style='color:#00BF00;font-weight: bold;'>RIDE</span>";
+							document.getElementById("LIGHTStatee").innerHTML = " ";
+							document.getElementById("LightImage").src="3333.png";
+							if (timerRunning) {
+							timerRunning = false;
+							clearInterval(timer);
+							blink();
+							 }
+							document.getElementById("pause-btn").style.display = "none";
+        						document.getElementById("resume-btn").style.display = "none";
+        						document.getElementById("light-off").style.display = "none";
+        						document.getElementById("light-on").style.display = "inline-block";
+							loopstart = 0;
+				      }
+					}
+				};
+				xhttp.open("GET", "https://api.thingspeak.com/channels/1892226/fields/1/last.json", true);
+				xhttp.send();
+			}
+
+			function updateTimer() {
+			seconds++;
+			if (seconds >= 60) {
+				seconds = 0;
+				minutes++;
+				if (minutes >= 60) {
+					minutes = 0;
+					hours++;
+				}
+			}
+			document.getElementById("timer").textContent = formatTime(hours) + ":" + formatTime(minutes) + ":" + formatTime(seconds);
+		}
+		
+		function formatTime(time) {
+			return time < 10 ? "0" + time : time;
+		}
+		
+		function blink() {
+			var count = 0;
+			var blinkTimer = setInterval(function() {
+				count++;
+				document.getElementById("timer").classList.toggle("blink");
+				if (count == 15) {
+					clearInterval(blinkTimer);
+					document.getElementById("timer").classList.remove("blink");
+					document.getElementById("timer").style.color = "#000";
+					hours = 0;
+					minutes = 0;
+					seconds = 0;
+					document.getElementById("timer").textContent= formatTime(hours) + ":" + formatTime(minutes) + ":" + formatTime(seconds);
+				}
+			}, 1000);
+			document.getElementById("timer").style.color = "red";
+			document.getElementById("LIGHTState").innerHTML = "Your <span style='color:red;font-weight: bold;'>RIDE</span> has ended";
+			document.getElementById("LIGHTStatee").innerHTML = " ";
+		}
+		</script>
+	</body>
+</html>
